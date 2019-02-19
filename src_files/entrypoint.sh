@@ -6,6 +6,9 @@ done
 
 /etc/init.d/liquidsoap start
 
+/opt/recorder/recorder --config=/app/config/config.json >> /logs/recorder 2>&1 &
+sleep 2
+
 
 envsubst < /settings_local.py > /opt/player/settings_local.py
 
@@ -19,9 +22,6 @@ daphne trunk_player.asgi:channel_layer --port 7055 --bind 127.0.0.1 >> /logs/pla
 ./manage.py add_transmission_worker >> /logs/player 2>&1 &
 ./manage.py add_transmission_worker >> /logs/player 2>&1 &
 ./manage.py runserver 0.0.0.0:8000 >> /logs/player 2>&1 &
-
-/opt/recorder/recorder --config=/app/config/config.json >> /logs/recorder 2>&1 &
-sleep 2
 
 if [ "$1" = "test" ]; then
   tail -f -n +1 /logs/*

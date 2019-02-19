@@ -41,7 +41,7 @@ result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
 csvline = result.stdout
 logger.debug("csvline: %s", csvline)
 a = csvline.split(',')
-ALPHA, STREAM_LIST = a[3], a[9]
+ALPHA, STREAM_LIST = a[2], a[8]
 
 logger.debug("ALPHA: %s", ALPHA)
 logger.debug("STREAM_LIST: %s", STREAM_LIST)
