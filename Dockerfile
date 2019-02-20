@@ -45,6 +45,9 @@ RUN git clone https://github.com/ScanOC/trunk-player.git /opt/player && \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
+# Get recorder
+COPY --from=gibby/trunk-recorder:latest /opt/recorder /opt/recorder
+
 # Setup container
 COPY src_files/* ./
 
@@ -53,7 +56,6 @@ RUN mkdir -p /app/media /app/encoded /app/liquidsoap /logs && \
 
 EXPOSE 8000
 
-
-COPY --from=gibby/trunk-recorder:latest /opt/recorder /opt/recorder
 ENTRYPOINT ["/entrypoint.sh"]
+
 CMD ["test"]

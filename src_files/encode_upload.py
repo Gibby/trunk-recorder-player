@@ -2,13 +2,14 @@
 import socket
 import sys
 import os
+import shutil
 from subprocess import call
 from subprocess import PIPE, run
 
 import logging
 
 logger = logging.getLogger('streamthis')
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler(sys.stdout)
 formatter = logging.Formatter('streamthis: %(message)s')
 handler.setFormatter(formatter)
@@ -31,6 +32,9 @@ logger.debug("FILENAME: %s", FILENAME)
 MP3_FILE="{0}/{1}.mp3".format(DIRECTORY, FILENAME).rstrip()
 logger.debug("MP3_FILE: %s", MP3_FILE)
 
+JSON_FILE="{0}/{1}.json".format(DIRECTORY, FILENAME).rstrip()
+logger.debug("JSON_FILE: %s", JSON_FILE)
+
 a = FILENAME.split('-')
 TALKGROUP = a[0]
 logger.debug("TALKGROUP: %s", TALKGROUP)
@@ -50,9 +54,14 @@ if (STREAM_LIST.strip() == ''):
     logger.info("No Stream for [%s] %s", TALKGROUP, ALPHA)
     quit(0)
 
-call(["/usr/bin/lame", "--quiet", "-m", "m", "-b", "16", "--resample", "8", "--tt", "{0}".format(ALPHA), FILE_TO_ENCODE
+call(["/usr/bin/lame", "--quiet", "-m", "m", "-b", "16", "--resample", "8", "--tt", "{0}".format(ALPHA), FILE_TO_ENCODE])
 
 
+#shutil.copy2(MP3_FILE, '/opt/player/audio_files/')
+#shutil.copy2(JSON_FILE, '/opt/player/audio_files/')
+
+#os.chdir('/opt/player/')
+#call(["/usr/bin/python3", "/opt/player/manage.py", "add_transmission", FILENAME])
 
 if os.path.exists(FILE_TO_ENCODE):
     os.remove(FILE_TO_ENCODE)

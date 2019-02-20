@@ -9,6 +9,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BASE_DIR = '/opt/player'
+
 # Make this unique, and don't share it with anybody.
 # You can use http://www.miniwebtool.com/django-secret-key-generator/
 # to create one.
