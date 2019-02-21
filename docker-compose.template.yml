@@ -21,6 +21,7 @@ services:
       - liquidsoap:/app/liquidsoap
       - /dev/bus/usb:/dev/bus/usb
     environment:
+      START_TRUNK_PLAYER: true
       SECRET_KEY: Get key from https://www.miniwebtool.com/django-secret-key-generator/
       SITE_TITLE: Trunk-Player
       SITE_EMAIL: help@example.com
